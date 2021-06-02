@@ -1,0 +1,37 @@
+build
+
+docker build --rm -f Dockerfile -t nginx-test:latest .
+
+docker build . -t web-cockpit-backend:local
+docker save web-cockpit-backend > web-cockpit-backend.tar
+microk8s ctr image import web-cockpit-backend.tar
+
+docker run -p 3344:3344 --name webserver web-cockpit-backend:local
+
+run
+
+docker run --rm -d -p 80:80 nginx-test:latest
+
+https://medium.com/yld-blog/deploy-your-create-react-app-with-docker-and-ngnix-653e94ffb537
+
+https://microk8s.io/docs/registry-images
+microk8s.kubectl apply -f pod.yaml
+microk8s.kubectl get po
+microk8s.kubectl delete pod nginx-7vkf2
+microk8s.kubectl delete -f pod.yaml
+microk8s.kubectl apply -f deployment.yaml
+microk8s kubectl get nodes -o wide
+
+microk8s ctr images ls
+microk8s.kubectl delete deployment first
+
+https://nginx-service
+microk8s.kubectl exec -it nginx-deployment-66568b8bc4-srdnt -- /bin/sh
+
+5b6628aa526f43b254a7a3482ebd8ae14c8f29a7db403ee1a5148a11bdb4cde0
+
+service
+https://kubernetes.io/docs/concepts/services-networking/service/
+
+deployment
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
